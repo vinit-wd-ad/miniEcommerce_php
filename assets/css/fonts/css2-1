@@ -1,0 +1,7 @@
+﻿@font-face {
+  font-family: 'Parisienne';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(s/parisienne/v14/E21i_d3kivvAkxhLEVZpcy8.ttf) format('truetype');
+}
