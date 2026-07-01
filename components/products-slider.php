@@ -20,7 +20,7 @@
                         <div class="product-plr-1">
                             <div class="single-product-wrap">
                                 <div class="product-img product-img-zoom mb-20">
-                                    <a href="product-details.php">
+                                    <a href="<?= BASE_URL ?>product-details/<?= $product['slug'] ?>">
                                         <img src="<?= API_URL . $product['image'] ?>" alt="">
                                     </a>
                                     <!-- <span class="pro-badge left bg-red">-40%</span> -->

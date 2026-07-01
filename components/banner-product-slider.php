@@ -10,7 +10,7 @@ if (!empty($catProducts)) {
                             <div class="col-lg-4 col-md-6">
                                 <div class="banner-wrap h-100">
                                     <div class="banner-img banner-img-zoom">
-                                        <a href="product-details.php"><img src="<?= API_URL . $catProduct['image'] ?>" alt=""></a>
+                                        <a href="<?= BASE_URL ?>category/<?= $catProduct['slug'] ?>"><img src="<?= API_URL . $catProduct['image'] ?>" alt=""></a>
                                     </div>
                                     <div class="banner-content-23 text-center">
                                         <!-- <div class="banner-content-23-top">
@@ -18,7 +18,7 @@ if (!empty($catProducts)) {
                                             <h2><span>50%</span> OFF <br><?= $catProduct['name'] ?></h2>
                                         </div> -->
                                         <div class="banner-btn-3 w-100">
-                                            <a href="product-details.php" class="w-100 bg-dark">View All</a>
+                                            <a href="<?= BASE_URL ?>category/<?= $catProduct['slug'] ?>" class="w-100 bg-dark">View All</a>
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@ if (!empty($catProducts)) {
                                                 <div class="product-plr-1">
                                                     <div class="single-product-wrap">
                                                         <div class="product-img product-img-zoom mb-15">
-                                                            <a href="product-details.php">
+                                                            <a href="<?= BASE_URL ?>product-details/<?= $product['slug'] ?>">
                                                                 <img src="<?= API_URL . $product['image'] ?>" alt="">
                                                             </a>
                                                         </div>

@@ -10,7 +10,7 @@
                  <div class="row align-items-center">
                      <div class="col-xl-2 col-lg-2">
                          <div class="logo">
-                             <a href="index.php"><img src="<?= $webSetting['site_logo_url'] ?? '' ?>" alt="logo" class="w-50 rounded"></a>
+                             <a href="<?= BASE_URL ?>index.php"><img src="<?= $webSetting['site_logo_url'] ?? '' ?>" alt="logo" class="w-50 rounded"></a>
                          </div>
                      </div>
                      <div class="col-xl-7 col-lg-7">
