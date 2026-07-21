@@ -24,7 +24,7 @@
 
         <?php include "components/categories-slider.php" ?>
 
-        <?php include "components/offer-banners.php" ?>
+        <?php #include "components/offer-banners.php" ?>
 
         <?php include "components/products-slider.php" ?>
 

@@ -101,7 +101,7 @@ $relatedProducts = fetchApi($relatedProductUrl);
                             <div class="pro-details-quality">
                                 <span>Quantity:</span>
                                 <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                    <input class="cart-plus-minus-box" id="qty" type="text" name="qtybutton" value="1">
                                 </div>
                             </div>
                             <div class="product-details-meta">
@@ -111,7 +111,7 @@ $relatedProducts = fetchApi($relatedProductUrl);
                             </div>
                             <div class="pro-details-action-wrap">
                                 <div class="pro-details-add-to-cart">
-                                    <a title="Add to Cart" href="#">Add To Cart </a>
+                                    <a title="Add to Cart" class="add-to-cart" data-id="<?= $product['id'] ?>">Add To Cart </a>
                                 </div>
                                 <div class="pro-details-action">
                                     <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
@@ -130,6 +130,50 @@ $relatedProducts = fetchApi($relatedProductUrl);
                 </div>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const btn = event.currentTarget;
+                        const pid = btn.getAttribute('data-id');
+
+                        const productCard = btn.closest('.product-details-content');
+                        const qtyInput = productCard ? productCard.querySelector('.cart-plus-minus-box') : null;
+                        const qty = qtyInput ? qtyInput.value : 1;
+
+                        if (pid > 0) {
+                            fetch('<?= BASE_URL ?>cart/add.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        product_id: pid,
+                                        quantity: qty
+                                    })
+                                })
+                                .then(async response => {
+                                    if (!response.ok) {
+                                        const errorText = await response.text();
+                                        throw new Error(`Server returned status ${response.status}: ${errorText}`);
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    console.log('Success:', data);
+                                })
+                                .catch(error => {
+                                    console.error('Fetch Error:', error.message);
+                                });
+                        }
+                    });
+                });
+            });
+        </script>
 
         <div class="description-review-wrapper pb-110">
             <div class="container">
