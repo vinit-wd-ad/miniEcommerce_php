@@ -10,7 +10,7 @@
                  <div class="row align-items-center">
                      <div class="col-xl-2 col-lg-2">
                          <div class="logo">
-                             <a href="<?= BASE_URL ?>index.php"><img src="<?= $webSetting['site_logo_url'] ?? '' ?>" alt="logo" class="w-50 rounded"></a>
+                             <a href="<?= BASE_URL ?>"><img src="<?= $webSetting['site_logo_url'] ?? '' ?>" alt="logo" class="w-50 rounded"></a>
                          </div>
                      </div>
                      <div class="col-xl-7 col-lg-7">
@@ -35,10 +35,10 @@
                      <div class="col-xl-3 col-lg-3">
                          <div class="header-action header-action-flex">
                              <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc">
-                                 <a href="login-register.html"><i class="icon-user"></i></a>
+                                 <a href="<?= BASE_URL ?>login-register.php"><i class="icon-user"></i></a>
                              </div>
                              <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc">
-                                 <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count black">03</span></a>
+                                 <a href="<?= BASE_URL ?>wishlist.html"><i class="icon-heart"></i><span class="pro-count black">03</span></a>
                              </div>
                              <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc header-cart">
                                  <a class="cart-active" href="#"><i class="icon-basket-loaded"></i><span class="pro-count black">02</span></a>
@@ -85,7 +85,7 @@
              <div class="row align-items-center">
                  <div class="col-5">
                      <div class="mobile-logo">
-                         <a href="index.php">
+                         <a href="<?= BASE_URL ?>">
                              <img alt="" src="assets/images/logo/logo-3.png">
                          </a>
                      </div>
@@ -93,10 +93,10 @@
                  <div class="col-7">
                      <div class="header-action header-action-flex">
                          <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc">
-                             <a href="login-register.html"><i class="icon-user"></i></a>
+                             <a href="<?= BASE_URL ?>login-register.php"><i class="icon-user"></i></a>
                          </div>
                          <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc">
-                             <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count black">03</span></a>
+                             <a href="<?= BASE_URL ?>"><i class="icon-heart"></i><span class="pro-count black">03</span></a>
                          </div>
                          <div class="same-style-2 same-style-2-white same-style-2-hover-black same-style-2-font-inc header-cart">
                              <a class="cart-active" href="#">

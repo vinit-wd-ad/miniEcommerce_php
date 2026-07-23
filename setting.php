@@ -9,19 +9,15 @@ define('API_URL', 'https://vinit.convertfileplus.com/storage/');
 // define('API_URL', 'https://vecommerce.up.railway.app/storage/');
 
 require_once "helpers/fetchAPI.php";    
+require_once "helpers/callAPI.php";    
 
-$settingUrl = API_ROOT . 'settings';
-$webSettings = fetchApi($settingUrl);
+$webSettings = callApi('settings');
 $webSetting = $webSettings['data'] ?? [];
 
-$categoryUrl = API_ROOT . 'categories';
-$categories = fetchApi($categoryUrl);
+$categories = callApi('categories');
 
-$heroBannerUrl = API_ROOT . 'banners/hero_banner/type';
-$heroBanners = fetchApi($heroBannerUrl);
+$heroBanners = callApi('banners/hero_banner/type');
 
-$productUrl = API_ROOT . 'products';
-$products = fetchApi($productUrl);
+$products = callApi('products');
 
-$catProductUrl = API_ROOT . 'categories-products';
-$catProducts = fetchApi($catProductUrl);
+$catProducts = callApi('categories-products');

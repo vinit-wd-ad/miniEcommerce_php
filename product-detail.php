@@ -3,8 +3,7 @@ include "setting.php";
 
 if (isset($_GET['slug'])) {
     $slug = $_GET['slug'];
-    $productUrl = API_ROOT . 'products/' . $slug . '/slug';
-    $product = fetchApi($productUrl)['data'];
+    $product = callApi('products/' . $slug . '/slug')['data'];
 }
 
 $relatedProductUrl = API_ROOT . 'products/' . $product['category']['slug'] . '/category';
@@ -36,7 +35,7 @@ $relatedProducts = fetchApi($relatedProductUrl);
                 <div class="breadcrumb-content text-center">
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="<?= BASE_URL ?>">Home</a>
                         </li>
                         <li class="active"><?= $product['name'] ?></li>
                     </ul>
@@ -108,6 +107,11 @@ $relatedProducts = fetchApi($relatedProductUrl);
                                 <ul>
                                     <li><span>Categories:</span> <a href="#"><?= $product['category']['name'] ?></a></li>
                                 </ul>
+                                <?php
+                                // echo "<pre>";
+                                // print_r($_SESSION);
+                                // echo "</pre>";
+                                ?>
                             </div>
                             <div class="pro-details-action-wrap">
                                 <div class="pro-details-add-to-cart">
@@ -130,50 +134,6 @@ $relatedProducts = fetchApi($relatedProductUrl);
                 </div>
             </div>
         </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const addToCartButtons = document.querySelectorAll('.add-to-cart');
-
-                addToCartButtons.forEach(button => {
-                    button.addEventListener('click', (event) => {
-                        const btn = event.currentTarget;
-                        const pid = btn.getAttribute('data-id');
-
-                        const productCard = btn.closest('.product-details-content');
-                        const qtyInput = productCard ? productCard.querySelector('.cart-plus-minus-box') : null;
-                        const qty = qtyInput ? qtyInput.value : 1;
-
-                        if (pid > 0) {
-                            fetch('<?= BASE_URL ?>cart/add.php', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Accept': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        product_id: pid,
-                                        quantity: qty
-                                    })
-                                })
-                                .then(async response => {
-                                    if (!response.ok) {
-                                        const errorText = await response.text();
-                                        throw new Error(`Server returned status ${response.status}: ${errorText}`);
-                                    }
-                                    return response.json();
-                                })
-                                .then(data => {
-                                    console.log('Success:', data);
-                                })
-                                .catch(error => {
-                                    console.error('Fetch Error:', error.message);
-                                });
-                        }
-                    });
-                });
-            });
-        </script>
 
         <div class="description-review-wrapper pb-110">
             <div class="container">

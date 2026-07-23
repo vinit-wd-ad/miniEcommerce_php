@@ -1,6 +1,9 @@
  <!-- All JS is here
 ============================================ -->
-
+ <script>
+     const BASE_URL = '<?= BASE_URL ?>';
+ </script>
+ <script src="<?= BASE_URL ?>assets/js/api.js"></script>
  <script src="<?= BASE_URL ?>assets/js/vendor/modernizr-3.11.7.min.js"></script>
  <script src="<?= BASE_URL ?>assets/js/vendor/jquery-v3.6.0.min.js"></script>
  <script src="<?= BASE_URL ?>assets/js/vendor/jquery-migrate-v3.3.2.min.js"></script>
