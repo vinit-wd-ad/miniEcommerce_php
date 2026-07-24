@@ -7,8 +7,8 @@ $jsonInput = file_get_contents('php://input');
 $data = json_decode($jsonInput, true);
 
 // Extract credentials matching frontend payload keys
-$userName = isset($data['user-name']) ? trim($data['user-name']) : null;
-$userPassword = isset($data['user-password']) ? $data['user-password'] : null;
+$userName = isset($data['email']) ? trim($data['email']) : null;
+$userPassword = isset($data['password']) ? $data['password'] : null;
 
 if (!empty($userName) && !empty($userPassword)) {
 
