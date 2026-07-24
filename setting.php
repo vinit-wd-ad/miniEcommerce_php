@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define('BASE_URL', 'http://local.root.com/php-code/miniEcommerce/');
+define('BASE_URL', 'http://local.php/miniEcommerce/');
 define('BASE_PATH', __DIR__ . '/');
 define('API_ROOT', 'https://vinit.convertfileplus.com/api/v1/');
 define('API_URL', 'https://vinit.convertfileplus.com/storage/');

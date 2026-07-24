@@ -13,20 +13,24 @@ function callApi($slug, $method = 'GET', $data = [], $headers = [])
     $url = API_ROOT . $slug;
     $ch = curl_init();
 
-    // Default Headers
     $defaultHeaders = [
         "Content-Type: application/json",
         "Accept: application/json"
     ];
 
-    // Merge custom headers if provided
     $headers = array_merge($defaultHeaders, $headers);
 
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    
+    // SSL Issues Bypass karne ke liye
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    
+    // Timeout set karein (5 seconds)
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 
-    // HTTP Method Selection
     $method = strtoupper($method);
     if ($method === 'POST') {
         curl_setopt($ch, CURLOPT_POST, true);
@@ -38,9 +42,11 @@ function callApi($slug, $method = 'GET', $data = [], $headers = [])
 
     $response = curl_exec($ch);
 
+    // Error catching
     if (curl_errno($ch)) {
+        echo "cURL Error on URL ($url): " . curl_error($ch);
         curl_close($ch);
-        return false;
+        die();
     }
 
     curl_close($ch);
