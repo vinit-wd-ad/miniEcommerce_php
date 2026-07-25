@@ -22,7 +22,7 @@ if (!empty($name) && !empty($email) && !empty($password)) {
     ];
 
     // Call external backend API for registration
-    $apiResponse = callApi('user/new', 'POST', $postData);
+    $apiResponse = callApi('user/register', 'POST', $postData);
 
     // Check if registration was successful
     if (isset($apiResponse['status']) && ($apiResponse['status'] === true || $apiResponse['status'] === 'success')) {

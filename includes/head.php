@@ -19,3 +19,4 @@
 <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/magnific-popup.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/jquery-ui.css">
 <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom.css">

@@ -4,11 +4,10 @@ include "setting.php";
 $cartItems = $_SESSION['user_cart']['cart_items'] ?? [];
 
 // Hit Laravel API in a single POST request
-$apiResponse = callApi('cart/details', 'POST', [
+$apiResponse = callApi('v1/cart/details', 'POST', [
     'cart_items' => $cartItems
 ]);
 
-// $apiResponse contains all products DB details + Subtotal + Total items count!
 ?>
 
 <!doctype html>
@@ -102,7 +101,7 @@ $apiResponse = callApi('cart/details', 'POST', [
                                                             <input class="cart-plus-minus-box"
                                                                 type="text"
                                                                 name="qty[<?= $item['product_id'] ?>]"
-                                                                value="<?= $item['quantity'] ?>">
+                                                                value="<?= $item['quantity'] ?>" readonly>
                                                         </div>
                                                     </td>
                                                     <td class="product-subtotal">

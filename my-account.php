@@ -1,5 +1,10 @@
 <?php
-include "setting.php"
+include "setting.php";
+include "helpers/isLogin.php";
+$user = [];
+if(isset($_SESSION['user'])){
+    $user = $_SESSION['user'];
+}
 ?>
 
 <!doctype html>
@@ -25,7 +30,7 @@ include "setting.php"
                 <div class="breadcrumb-content text-center">
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="<?= BASE_URL ?>">Home</a>
                         </li>
                         <li class="active">my account </li>
                     </ul>
@@ -64,7 +69,7 @@ include "setting.php"
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
                                                 <div class="welcome">
-                                                    <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+                                                    <p>Hello, <strong><?= $user['name'] ?></strong></p>
                                                 </div>
 
                                                 <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>

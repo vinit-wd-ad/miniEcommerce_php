@@ -1,4 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    /**
+     * Display a temporary floating alert notification
+     * 
+     * @param {string} message - Text message to show
+     * @param {string} type - Alert type: 'success', 'error', 'warning', 'info' (Default: 'success')
+     * @param {number} duration - Display duration in milliseconds (Default: 2000ms)
+    */
+    function showAlert(message, type = 'success', duration = 2000) {
+        // 1. Check if container exists; if not, create and append it to the body
+        let container = document.querySelector('#custom-alert-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'custom-alert-container';
+            document.body.appendChild(container);
+        }
+
+        // 2. Create the alert element
+        const alertBox = document.createElement('div');
+        alertBox.className = `custom-alert ${type}`;
+        alertBox.innerText = message;
+
+        // 3. Append alert element to container
+        container.appendChild(alertBox);
+
+        // 4. Trigger slide-in animation
+        setTimeout(() => {
+            alertBox.classList.add('show');
+        }, 50);
+
+        // 5. Automatically hide and remove the alert element after specified duration
+        setTimeout(() => {
+            alertBox.classList.remove('show');
+            setTimeout(() => {
+                alertBox.remove();
+            }, 300); // Wait for transition animation to complete
+        }, duration);
+    }
+
     // 1. Add to Cart buttons Actions
     (() => {
         const addToCartButtons = document.querySelectorAll('.add-to-cart');
@@ -32,10 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             return response.json();
                         })
                         .then(data => {
-                            console.log('Success:', data);
+                            // console.log('Success:', data);
+                            showAlert(data.message, 'success');
                         })
                         .catch(error => {
-                            console.error('Fetch Error:', error.message);
+                            // console.error('Fetch Error:', error.message);
+                            showAlert(error.message, 'error');
                         });
                 }
             });
@@ -71,13 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     })
                     .then(data => {
                         if (data.status === 'success') {
-                            window.location.reload();
+                            window.location.href = BASE_URL + 'my-account.php';
                         } else {
-                            msgBox.textContent = data.message || 'Login failed!';
+                            showAlert(data.message || 'Login failed', 'warning')
                         }
                     })
                     .catch(error => {
-                        msgBox.textContent = 'Login Error:' + error.message;
+                        showAlert('Login failed', 'error')
                     });
             });
         }
@@ -118,15 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     })
                     .then(data => {
                         if (data.status === 'success') {
-                            // Refresh on success (or redirect as per flow)
-                            window.location.reload();
+                            window.location.href = BASE_URL + 'my-account.php';
                         } else {
-                            msgBox.textContent = data.message || 'Registration failed!'
+                            // msgBox.textContent = data.message
+                            showAlert('Registration failed!','warning');
                         }
                     })
                     .catch(error => {
-                        console.error('Registration Error:', error.message);
-                        msgBox.textContent = error.message || 'An error occurred during registration.';
+                        // msgBox.textContent = error.message;
+                        showAlert('An error occurred during registration.', 'error');
                     });
             });
         }

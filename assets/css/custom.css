@@ -1,0 +1,43 @@
+/* Custom Alert Floating Container */
+#custom-alert-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+/* Base Alert Styling */
+.custom-alert {
+  min-width: 260px;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Show state for animation */
+.custom-alert.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Alert Type Colors */
+.custom-alert.success {
+  background-color: #4beb70f4;
+} /* Green */
+.custom-alert.error {
+  background-color: #dc3545;
+} /* Red */
+.custom-alert.warning {
+  background-color: #f8c839f6;
+  color: #212529;
+} /* Yellow */
+.custom-alert.info {
+  background-color: #17a2b8;
+} /* Blue */
