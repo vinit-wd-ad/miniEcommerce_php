@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     })
                     .catch(error => {
-                        msgBox.textContent = 'Login Error:', error.message;
+                        msgBox.textContent = 'Login Error:' + error.message;
                     });
             });
         }

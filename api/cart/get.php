@@ -17,7 +17,7 @@ if (isset($_SESSION['user_cart']['cart_items']) && !empty($_SESSION['user_cart']
         $quantity  = $cartItem['quantity'];
 
         // Call Main API to fetch full product details
-        $apiResponse = callApi('products/' . $productId, 'GET');
+        $apiResponse = fetchApi('products/' . $productId, 'GET');
         $product = $apiResponse['data'] ?? null;
 
         if ($product) {

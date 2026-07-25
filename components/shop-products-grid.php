@@ -1,9 +1,9 @@
 <?php
 
-$productUrl = API_ROOT . 'products';
+$productUrl = 'products';
 if (isset($_GET['slug'])) {
     $slug = $_GET['slug'];
-    $productUrl = API_ROOT . 'products/' . $slug . '/category';
+    $productUrl = 'products/' . $slug . '/category';
 }
 
 $products = fetchApi($productUrl);

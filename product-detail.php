@@ -3,7 +3,7 @@ include "setting.php";
 
 if (isset($_GET['slug'])) {
     $slug = $_GET['slug'];
-    $product = callApi('products/' . $slug . '/slug')['data'];
+    $product = fetchApi('products/' . $slug . '/slug')['data'];
 }
 
 $relatedProductUrl = API_ROOT . 'products/' . $product['category']['slug'] . '/category';

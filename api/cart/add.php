@@ -17,7 +17,7 @@ $productId = isset($data['product_id']) ? $data['product_id'] : null;
 $quantity = isset($data['quantity']) ? (int)$data['quantity'] : 1;
 
 if ($productId) {
-    $apiResponse = callApi('products/' . $productId);
+    $apiResponse = fetchApi('products/' . $productId);
     $product = $apiResponse['data'] ?? null;
 
     if ($product) {

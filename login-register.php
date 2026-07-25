@@ -34,9 +34,9 @@ include "setting.php";
                             </div>
                             <p id="msg-box" class="text-danger"></p>
                             <?php
-                            // echo "<pre>";
-                            // print_r($_SESSION);
-                            // echo "</pre>";
+                            echo "<pre>";
+                            print_r($_SESSION);
+                            echo "</pre>";
                             ?>
                             <div class="tab-content">
                                 <div id="lg1" class="tab-pane active">
