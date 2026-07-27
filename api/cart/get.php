@@ -9,14 +9,14 @@ $cartDetails = [
     'total_items' => 0
 ];
 
-// Check if cart session exists and contains items
+// Check if cart exists
 if (isset($_SESSION['user_cart']['cart_items']) && !empty($_SESSION['user_cart']['cart_items'])) {
 
-    foreach ($_SESSION['user_cart']['cart_items'] as $cartItem) {
-        $productId = $cartItem['product_id'];
-        $quantity  = $cartItem['quantity'];
+    foreach ($_SESSION['user_cart']['cart_items'] as $productId => $cartItem) {
 
-        // Call Main API to fetch full product details
+        $quantity = $cartItem['quantity'];
+
+        // Fetch product details
         $apiResponse = fetchApi('products/' . $productId, 'GET');
         $product = $apiResponse['data'] ?? null;
 
@@ -40,7 +40,7 @@ if (isset($_SESSION['user_cart']['cart_items']) && !empty($_SESSION['user_cart']
     }
 }
 
-// Return JSON response for AJAX requests
+// Response
 echo json_encode([
     'status' => 'success',
     'data'   => $cartDetails

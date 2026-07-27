@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             window.location.href = BASE_URL + 'my-account.php';
                         } else {
                             // msgBox.textContent = data.message
-                            showAlert('Registration failed!','warning');
+                            showAlert('Registration failed!', 'warning');
                         }
                     })
                     .catch(error => {
@@ -171,6 +171,97 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
             });
         }
+    })();
+
+    // 4. Update Cart Quantity
+    (() => {
+        const buttons = document.querySelectorAll(".cart-plus-minus .dec, .cart-plus-minus .inc");
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                const container = button.closest(".cart-plus-minus");
+                const input = container.querySelector(".cart-plus-minus-box");
+
+                let quantity = parseInt(input.value) || 0;
+                const productId = input.dataset.productId || 1;
+
+                if (button.classList.contains("dec")) {
+                    quantity = quantity - 1;
+                } else {
+                    quantity = quantity + 1;
+                }
+
+                updateCartQuantity(productId, quantity);
+            });
+        });
+
+        /**
+         * Send API request to update item quantity
+         * 
+         * @param {number|string} productId - The ID of the product
+         * @param {number} quantity - The updated quantity
+         */
+        function updateCartQuantity(productId, quantity) {
+            fetch(BASE_URL + 'api/cart/update-quantity.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    quantity: quantity
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showAlert('Cart updated successfully!', 'success', 1500);
+                        location.reload();
+                    } else {
+                        showAlert(data.message || 'Failed to update cart', 'error');
+                    }
+                })
+                .catch(error => {
+                    showAlert('Server communication error!', 'error');
+                    console.error('Update Cart Error:', error);
+                });
+        }
+    })();
+
+    // Remove Product form Cart
+    (() => {
+        const removeProduct = document.querySelectorAll(".remove-product");
+        removeProduct.forEach(button => {
+            button.addEventListener("click", (event) => {
+                if (confirm('Are you sure you want to remove this item?')) {
+                    const productId = button.dataset.productId
+                    fetch(BASE_URL + 'api/cart/remove-product.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                showAlert('Cart remove successfully!', 'success', 1500);
+                                location.reload();
+                            } else {
+                                showAlert(data.message || 'Failed to remove cart', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            showAlert('Server communication error!', 'error');
+                            console.error('Remove Cart Error:', error);
+                        });
+                }
+            })
+        })
     })();
 
 });
