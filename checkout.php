@@ -1,5 +1,22 @@
 <?php
-    include "setting.php"
+include_once "setting.php";
+
+// Read active cart items from Session
+$cartItems = $_SESSION['user_cart']['cart_items'] ?? [];
+
+// Fetch cart summary details from Laravel API
+$apiResponse = callApi('v1/cart/details', 'POST', [
+    'cart_items' => $cartItems
+]);
+
+$cartDetails = $apiResponse['data'] ?? [
+    'items' => [],
+    'subtotal' => 0,
+    'total_items' => 0
+];
+
+$items = $cartDetails['items'] ?? [];
+$subtotal = $cartDetails['subtotal'] ?? 0;
 ?>
 
 <!doctype html>
@@ -39,7 +56,7 @@
                     <div class="row">
                         <div class="col-lg-7">
                             <div class="billing-info-wrap mr-50">
-                                <h3>Billing Details</h3>
+                                <h3>Shipping Address</h3>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="billing-info mb-20">
@@ -59,42 +76,43 @@
                                             <input type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6 col-sm-6">
                                         <div class="billing-select mb-20">
                                             <label>Country <abbr class="required" title="required">*</abbr></label>
                                             <select>
                                                 <option>Select a country</option>
-                                                <option>Azerbaijan</option>
-                                                <option>Bahamas</option>
-                                                <option>Bahrain</option>
-                                                <option>Bangladesh</option>
-                                                <option>Barbados</option>
+                                                <option selected>India</option>
+                                                <option value="">Chaina</option>
+                                                <option value="">Nepal</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6 col-sm-6">
                                         <div class="billing-info mb-20">
-                                            <label>Street Address <abbr class="required" title="required">*</abbr></label>
-                                            <input class="billing-address" placeholder="House number and street name" type="text">
-                                            <input placeholder="Apartment, suite, unit etc." type="text">
+                                            <label>State <abbr class="required" title="required">*</abbr></label>
+                                            <input type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6 col-sm-6">
                                         <div class="billing-info mb-20">
                                             <label>Town / City <abbr class="required" title="required">*</abbr></label>
                                             <input type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-6 col-sm-6">
                                         <div class="billing-info mb-20">
-                                            <label>State / County <abbr class="required" title="required">*</abbr></label>
+                                            <label>Postcode / ZIP <abbr class="required"
+                                                    title="required">*</abbr></label>
                                             <input type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-12">
                                         <div class="billing-info mb-20">
-                                            <label>Postcode / ZIP <abbr class="required" title="required">*</abbr></label>
-                                            <input type="text">
+                                            <label>Street Address <abbr class="required"
+                                                    title="required">*</abbr></label>
+                                            <input class="billing-address" placeholder="House number and street name"
+                                                type="text">
+                                            <input placeholder="Apartment, suite, unit etc." type="text">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
@@ -105,98 +123,19 @@
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="billing-info mb-20">
-                                            <label>Email Address <abbr class="required" title="required">*</abbr></label>
+                                            <label>Email Address <abbr class="required"
+                                                    title="required">*</abbr></label>
                                             <input type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="checkout-account mb-25">
-                                    <input class="checkout-toggle2" type="checkbox">
-                                    <span>Create an account?</span>
-                                </div>
-                                <div class="checkout-account-toggle open-toggle2 mb-30">
-                                    <label>Email Address</label>
-                                    <input placeholder="Password" type="password">
-                                </div>
-                                <div class="checkout-account mt-25">
-                                    <input class="checkout-toggle" type="checkbox">
-                                    <span>Ship to a different address?</span>
-                                </div>
-                                <div class="different-address open-toggle mt-30">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="billing-info mb-20">
-                                                <label>First Name</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="billing-info mb-20">
-                                                <label>Last Name</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="billing-info mb-20">
-                                                <label>Company Name</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="billing-select mb-20">
-                                                <label>Country</label>
-                                                <select>
-                                                    <option>Select a country</option>
-                                                    <option>Azerbaijan</option>
-                                                    <option>Bahamas</option>
-                                                    <option>Bahrain</option>
-                                                    <option>Bangladesh</option>
-                                                    <option>Barbados</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="billing-info mb-20">
-                                                <label>Street Address</label>
-                                                <input class="billing-address" placeholder="House number and street name" type="text">
-                                                <input placeholder="Apartment, suite, unit etc." type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="billing-info mb-20">
-                                                <label>Town / City</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="billing-info mb-20">
-                                                <label>State / County</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="billing-info mb-20">
-                                                <label>Postcode / ZIP</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="billing-info mb-20">
-                                                <label>Phone</label>
-                                                <input type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="billing-info mb-20">
-                                                <label>Email Address</label>
-                                                <input type="text">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="additional-info-wrap">
                                     <label>Order notes</label>
-                                    <textarea placeholder="Notes about your order, e.g. special notes for delivery. " name="message"></textarea>
+                                    <textarea placeholder="Notes about your order, e.g. special notes for delivery. "
+                                        name="message"></textarea>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button class="btn-2 mt-4" type="submit">Add Address</button>
                                 </div>
                             </div>
                         </div>
@@ -210,62 +149,78 @@
                                                 <li>Product <span>Total</span></li>
                                             </ul>
                                         </div>
+
+                                        <!-- Dynamic Cart Items List -->
                                         <div class="your-order-middle">
                                             <ul>
-                                                <li>Product Name X 1 <span>$329 </span></li>
-                                                <li>Product Name X 1 <span>$329 </span></li>
+                                                <?php if (!empty($items)): ?>
+                                                    <?php foreach ($items as $item): ?>
+                                                        <li>
+                                                            <?= htmlspecialchars($item['name']) ?> <strong>X
+                                                                <?= $item['quantity'] ?></strong>
+                                                            <span>₹<?= number_format($item['item_total'], 2) ?></span>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <li>Your cart is empty! <span>₹0.00</span></li>
+                                                <?php endif; ?>
                                             </ul>
                                         </div>
+
+                                        <!-- Subtotal Summary -->
                                         <div class="your-order-info order-subtotal">
                                             <ul>
-                                                <li>Subtotal <span>$329 </span></li>
+                                                <li>Subtotal <span>₹<?= number_format($subtotal, 2) ?></span></li>
                                             </ul>
                                         </div>
+
+                                        <!-- Shipping Summary -->
                                         <div class="your-order-info order-shipping">
                                             <ul>
-                                                <li>Shipping <p>Enter your full address </p>
+                                                <li>Shipping <p>Free Shipping</p>
                                                 </li>
                                             </ul>
                                         </div>
+
+                                        <!-- Grand Total -->
                                         <div class="your-order-info order-total">
                                             <ul>
-                                                <li>Total <span>$273.00 </span></li>
+                                                <li>Total <span>₹<?= number_format($subtotal, 2) ?></span></li>
                                             </ul>
                                         </div>
                                     </div>
+
+                                    <!-- Payment Methods -->
                                     <div class="payment-method">
                                         <div class="pay-top sin-payment">
-                                            <input id="payment_method_1" class="input-radio" type="radio" value="cheque" checked="checked" name="payment_method">
-                                            <label for="payment_method_1"> Direct Bank Transfer </label>
+                                            <input id="payment_method_1" class="input-radio" type="radio" value="cod"
+                                                checked="checked" name="payment_method">
+                                            <label for="payment_method_1"> Cash on Delivery </label>
                                             <div class="payment-box payment_method_bacs">
-                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                                <p>Pay with cash upon delivery of your order.</p>
                                             </div>
                                         </div>
+
                                         <div class="pay-top sin-payment">
-                                            <input id="payment-method-2" class="input-radio" type="radio" value="cheque" name="payment_method">
-                                            <label for="payment-method-2">Check payments</label>
+                                            <input id="payment_method_2" class="input-radio" type="radio" value="online"
+                                                name="payment_method">
+                                            <label for="payment_method_2"> Online Payment / UPI </label>
                                             <div class="payment-box payment_method_bacs">
-                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
-                                            </div>
-                                        </div>
-                                        <div class="pay-top sin-payment">
-                                            <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
-                                            <label for="payment-method-3">Cash on delivery </label>
-                                            <div class="payment-box payment_method_bacs">
-                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
-                                            </div>
-                                        </div>
-                                        <div class="pay-top sin-payment sin-payment-3">
-                                            <input id="payment-method-4" class="input-radio" type="radio" value="cheque" name="payment_method">
-                                            <label for="payment-method-4">PayPal <img alt="" src="assets/images/icon-img/payment.png"><a href="#">What is PayPal?</a></label>
-                                            <div class="payment-box payment_method_bacs">
-                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                                <p>Pay securely via Credit/Debit Card, Netbanking, or UPI gateway.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Place Order Button -->
                                 <div class="Place-order">
-                                    <a href="#">Place Order</a>
+                                    <?php if (!empty($items)): ?>
+                                        <button class="btn-2 w-100">Place
+                                            Order</button>
+                                    <?php else: ?>
+                                        <a href="shop.php" class="btn w-100 text-white"
+                                            style="background-color: #6c757d; padding: 15px;">Add Items to Checkout</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -280,7 +235,7 @@
 
     </div>
 
-     <?php include  "includes/script.php"; ?>
+    <?php include "includes/script.php"; ?>
 </body>
 
 </html>

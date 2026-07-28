@@ -30,14 +30,39 @@
 /* Alert Type Colors */
 .custom-alert.success {
   background-color: #4beb70f4;
-} /* Green */
+}
+
+/* Green */
 .custom-alert.error {
   background-color: #dc3545;
-} /* Red */
+}
+
+/* Red */
 .custom-alert.warning {
   background-color: #f8c839f6;
   color: #212529;
-} /* Yellow */
+}
+
+/* Yellow */
 .custom-alert.info {
   background-color: #17a2b8;
-} /* Blue */
+}
+
+/* Blue */
+
+.btn-2 {
+  background-color: #ff2f2f;
+  display: block;
+  cursor: pointer;
+  padding: 16px 50px 17px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+}
+.btn-2:hover{
+  background-color: #212529;
+}
