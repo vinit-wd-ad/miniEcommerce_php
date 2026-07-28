@@ -70,12 +70,6 @@ $subtotal = $cartDetails['subtotal'] ?? 0;
                                             <input type="text">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="billing-info mb-20">
-                                            <label>Company Name <abbr class="required" title="required">*</abbr></label>
-                                            <input type="text">
-                                        </div>
-                                    </div>
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="billing-select mb-20">
                                             <label>Country <abbr class="required" title="required">*</abbr></label>
@@ -132,7 +126,7 @@ $subtotal = $cartDetails['subtotal'] ?? 0;
                                 <div class="additional-info-wrap">
                                     <label>Order notes</label>
                                     <textarea placeholder="Notes about your order, e.g. special notes for delivery. "
-                                        name="message"></textarea>
+                                        name="message" class="border"></textarea>
                                 </div>
                                 <div class="col-lg-12">
                                     <button class="btn-2 mt-4" type="submit">Add Address</button>
